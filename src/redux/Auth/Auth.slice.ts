@@ -7,8 +7,7 @@ const initialState = {
   phone: '',
   token: '',
   userId: null,
-  validated: false,
-  userLocation: ''
+  validated: false
 };
 
 const AuthSliceReducer = createSlice({
@@ -33,12 +32,9 @@ const AuthSliceReducer = createSlice({
       state.name = '';
       state.userId = '';
       state.phone = '';
-    },
-    locationAction: (state, action) => {
-      state.userLocation = action.payload.location;
     }
   }
 });
 
-export const { logoutAction, locationAction } = AuthSliceReducer.actions;
+export const { logoutAction } = AuthSliceReducer.actions;
 export default AuthSliceReducer.reducer;

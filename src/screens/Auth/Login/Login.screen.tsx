@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as yup from 'yup';
 
-import { Input, Button, Text } from 'src/components';
+import { Input, Button, Text, Link } from 'src/components';
 import { useSignInMutation } from 'src/redux/Auth/Auth.api';
 import { AuthStackParams } from 'src/shared/routes/Auth.route';
 
@@ -28,7 +28,6 @@ const Login = ({ navigation }: NavigationProps) => {
   });
 
   const loginHandle = async () => {
-    console.warn('entrou');
     const isValidated = await schema.isValid({ email, password });
 
     if (isValidated) {
@@ -37,12 +36,9 @@ const Login = ({ navigation }: NavigationProps) => {
         password
       });
 
-      if (data?.token) {
-        // return Router.push('/');
-        return console.warn('entrou');
+      if (!data?.token) {
+        return setError(data?.message);
       }
-
-      return setError(data?.message);
     }
     setError('Preencha todos os campos');
   };
@@ -80,6 +76,9 @@ const Login = ({ navigation }: NavigationProps) => {
         <Button isLoading={isLoading} onPress={loginHandle}>
           Login
         </Button>
+        <Link marginTop={16} onPress={() => navigation.navigate('Register')}>
+          Criar uma conta
+        </Link>
       </S.Wrapper>
     </S.Container>
   );
